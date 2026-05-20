@@ -1,7 +1,14 @@
 import axios from 'axios';
 
+let apiBase = import.meta.env.VITE_API_URL || '/api';
+
+// Self-healing check: automatically append '/api' if a custom URL is provided but missing the path prefix
+if (apiBase !== '/api' && !apiBase.endsWith('/api') && !apiBase.endsWith('/api/')) {
+  apiBase = apiBase.replace(/\/$/, '') + '/api';
+}
+
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: apiBase,
   headers: {
     'Content-Type': 'application/json',
   },
