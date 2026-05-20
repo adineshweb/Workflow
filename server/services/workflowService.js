@@ -27,6 +27,11 @@ const TRANSITION_RULES = {
     { to: 'Reopened', allowedRoles: ['Admin'] }
   ],
   
+  Rejected: [
+    { to: 'Submitted', allowedRoles: ['User'] },
+    { to: 'Reopened', allowedRoles: ['Admin'] }
+  ],
+  
   Reopened: [
     { to: 'Approved', allowedRoles: ['Manager'] },
     { to: 'Rejected', allowedRoles: ['Manager'] },

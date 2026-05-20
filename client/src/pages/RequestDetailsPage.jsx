@@ -291,14 +291,14 @@ const RequestDetailsPage = () => {
                   </>
                 )}
 
-                {/* 2. User Actions (Resubmit Clarifications) */}
-                {userRole === 'User' && reqStatus === 'Needs Clarification' && isCreator && (
+                {/* 2. User Actions (Resubmit Clarifications / Rejections) */}
+                {userRole === 'User' && ['Needs Clarification', 'Rejected'].includes(reqStatus) && isCreator && (
                   <Button
                     variant="primary"
                     onClick={() => openActionModal('Submitted')}
                     className="px-6 py-2.5 bg-brand-800 hover:bg-brand-900"
                   >
-                    Resubmit with Clarifications
+                    Resubmit Request
                   </Button>
                 )}
 
@@ -313,7 +313,7 @@ const RequestDetailsPage = () => {
                   </Button>
                 )}
 
-                {userRole === 'Admin' && reqStatus === 'Closed' && (
+                {userRole === 'Admin' && ['Closed', 'Rejected'].includes(reqStatus) && (
                   <Button
                     variant="secondary"
                     onClick={() => openActionModal('Reopened')}
@@ -324,9 +324,9 @@ const RequestDetailsPage = () => {
                 )}
 
                 {/* State when no actions are available */}
-                {((userRole === 'User' && reqStatus !== 'Needs Clarification') ||
+                {((userRole === 'User' && !['Needs Clarification', 'Rejected'].includes(reqStatus)) ||
                   (userRole === 'Manager' && !['Submitted', 'Reopened'].includes(reqStatus)) ||
-                  (userRole === 'Admin' && !['Approved', 'Closed'].includes(reqStatus))) && (
+                  (userRole === 'Admin' && !['Approved', 'Closed', 'Rejected'].includes(reqStatus))) && (
                   <p className="text-xs text-slate-400 italic">
                     No actions are currently required from your user role for this request state.
                   </p>
