@@ -31,7 +31,10 @@ app.use(helmet());
 
 app.use(
   cors({
-    origin: 'http://localhost:5173', 
+    origin: (origin, callback) => {
+      // Dynamically allow any incoming origin to fix CORS across Vercel and local development
+      callback(null, true);
+    },
     credentials: true,
   })
 );
